@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PromptPolish Auth</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+  
+  <div class="container">
+    <div class="language-switch">
+      <select id="languageSelect">
+        <option value="en">English</option>
+        <option value="sw">Swahili</option>
+        <option value="fr">French</option>
+      </select>
+    </div>
+
+    <div class="toggle-buttons">
+      <button id="loginToggle" class="active">Login</button>
+      <button id="signupToggle">Sign Up</button>
+    </div>
+
+    <div class="form-wrapper">
+      <!-- Login Form -->
+      <form id="loginForm" class="auth-form">
+        <h2>Login</h2>
+        <div class="input-icon">
+          <i class="fas fa-envelope"></i>
+          <input type="email" placeholder="Email" required />
+        </div>
+        <div class="input-icon">
+          <i class="fas fa-lock"></i>
+          <input type="password" placeholder="Password" required />
+        </div>
+        <button type="submit"class="login-btn">Log In</button>
+        <br>
+        <a href="forgot-password.html" class="forgot-link">Forgot Password?</a>
+        <p class="redirect-text">Don’t have an account yet? <a href="signup.html">Create one</a>
+        </p>
+
+        <div class="oauth">
+          <button class="google"><i class="fab fa-google"></i> Google</button>
+          <button class="github"><i class="fab fa-github"></i> GitHub</button>
+        </div>
+
+      </form>
+
+      <!-- Sign-Up Form -->
+      <form id="signupForm" class="auth-form hidden">
+        <h2>Welcome to PromptPolish</h2>
+        <h2>Create Your Account</h2>
+        <div class="input-icon">
+          <i class="fas fa-person"></i>
+        <input type="text" placeholder="Full Name" required />
+        </div>
+         <div class="input-icon">
+          <i class="fas fa-envelope"></i>
+          <input type="email" placeholder="Email" required />
+        </div>
+         <div class="input-icon">
+          <i class="fas fa-lock"></i>
+          <input type="password" placeholder="Password" required />
+        </div>
+         <div class="input-icon">
+          <i class="fas fa-lock"></i>
+          <input type="password" placeholder="Confirm Password" required />
+        </div>
+
+        <div id="matchMessage" class="message"></div>
+
+        <div id="strengthMeter"></div>
+        <button type="submit">Sign Up</button>
+        <p class="redirect-text"> Already have an account? <a href="login.html">Log in here</a>
+        </p>
+        <div class="oauth">
+          <button class="google"><i class="fab fa-google"></i> Google</button>
+          <button class="github"><i class="fab fa-github"></i> GitHub</button>
+        </div>
+      
+      </form>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

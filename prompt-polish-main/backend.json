@@ -1,0 +1,618 @@
+{
+  "name": "My workflow 2",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "contact",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -208,
+        112
+      ],
+      "id": "611c9231-8a4e-41dc-938e-65a9432106f5",
+      "name": "contact",
+      "webhookId": "5bba6528-2ef4-4b30-82da-4b417c38c19c"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $json.body.Email }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        560,
+        288
+      ],
+      "id": "04e4f9c9-77c3-4693-af75-6ef911b4f808",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/1PbfjtLw_NcKD2da3DTWNDs1g6OoPbDVVlgQ2Dpr2kdQ/edit?gid=0#gid=0",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Signup",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1PbfjtLw_NcKD2da3DTWNDs1g6OoPbDVVlgQ2Dpr2kdQ/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Full_Name": "={{ $json.body.Full_Name }}",
+            "Email": "={{ $json.body.Email }}",
+            "Password1": "={{ $json.body.Password1 }}",
+            "Password2": "={{ $json.body.Password2 }}"
+          },
+          "matchingColumns": [
+            "Full_Name"
+          ],
+          "schema": [
+            {
+              "id": "Full_Name",
+              "displayName": "Full_Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Password1",
+              "displayName": "Password1",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Password2",
+              "displayName": "Password2",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        624,
+        -32
+      ],
+      "id": "58d569f1-7018-49cd-8046-bfd5276dbc1a",
+      "name": "signup-sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "bbUWK6qntcBzGRw0",
+          "name": "signup-sheets"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "signup",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -544,
+        -192
+      ],
+      "id": "40172a05-9bf3-4ff8-ae76-6e6341cf5e70",
+      "name": "signup",
+      "webhookId": "3cde4c93-0304-44ad-94bd-8313a77d00e3"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        0,
+        224
+      ],
+      "id": "754d687f-b573-4dde-9212-0d31c824a22d",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "vGyV5L5AdkAzMiIa",
+          "name": "Gemini"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "login",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -416,
+        -432
+      ],
+      "id": "978ed5bf-5fcc-4bea-9ef0-7ecd6f542a03",
+      "name": "login",
+      "webhookId": "e16e08d5-6378-4747-b4e5-44db1eec0e5d"
+    },
+    {
+      "parameters": {
+        "text": "=Name:{{ $json.body.name }}\nEmail:{{ $json.body.email }}\nSubject:{{ $json.body.subject }}\nMessage: {{ $json.body.message }}",
+        "attributes": {
+          "attributes": [
+            {
+              "name": "={{ $json.body.name }}",
+              "description": "={{ $json.body.subject }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.informationExtractor",
+      "typeVersion": 1.2,
+      "position": [
+        32,
+        16
+      ],
+      "id": "22333ca5-2855-414b-858f-bfa2445d2712",
+      "name": "Information Extractor"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/1eLQYcGuNtTU5byD7LXeHj9V2reeuOWfINhXQPGYNRO0/edit?gid=0#gid=0",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1eLQYcGuNtTU5byD7LXeHj9V2reeuOWfINhXQPGYNRO0/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Name": "={{ $('contact').item.json.body.name }}",
+            "Email": "={{ $('contact').item.json.body.email }}"
+          },
+          "matchingColumns": [
+            "Name"
+          ],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        400,
+        -16
+      ],
+      "id": "946e6391-b39b-4875-8411-146705343b18",
+      "name": "Contacts",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "bbUWK6qntcBzGRw0",
+          "name": "signup-sheets"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/1PbfjtLw_NcKD2da3DTWNDs1g6OoPbDVVlgQ2Dpr2kdQ/edit?gid=0#gid=0",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Signup",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1PbfjtLw_NcKD2da3DTWNDs1g6OoPbDVVlgQ2Dpr2kdQ/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Full_Name": "={{ $json.body.Full_Name }}",
+            "Email": "={{ $json.body.Email }}",
+            "Password1": "={{ $json.body.Password1 }}",
+            "Password2": "={{ $json.body.Password2 }}"
+          },
+          "matchingColumns": [
+            "Full_Name"
+          ],
+          "schema": [
+            {
+              "id": "Full_Name",
+              "displayName": "Full_Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Password1",
+              "displayName": "Password1",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Password2",
+              "displayName": "Password2",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -224,
+        -192
+      ],
+      "id": "38c80f58-8128-47f7-84fc-2def841f9dc6",
+      "name": "Append or update row in sheet1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "bbUWK6qntcBzGRw0",
+          "name": "signup-sheets"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Prompt:{{ $json.body.prompt }}\nyou are to refine the user input above into a suitable and more accurate prompt then display the better prompt. DO NOT ASK QUESTIONS JUST DO AS THE USER PROMPTS. ASSUME YOU ARE THE USER AND REFINE THE PROMPT",
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        432,
+        -288
+      ],
+      "id": "9e35f776-baf0-454d-b5ca-7490ed3bb081",
+      "name": "Basic LLM Chain"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        432,
+        -96
+      ],
+      "id": "1ea693b0-06f2-4a7b-8f81-4ec97fdae58a",
+      "name": "Google Gemini Chat Model1",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "vGyV5L5AdkAzMiIa",
+          "name": "Gemini"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "prompt",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        -400
+      ],
+      "id": "7ed8a137-fb81-45ca-a375-16bb900a3789",
+      "name": "prompt1",
+      "webhookId": "63e35d26-8019-4b4b-8960-6b73a8ddd37c"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentURL": "https://docs.google.com/document/d/1ZF7Tz83QMA026TQd3yLZm_uWbdKLXkgyjRmZ9Innx6U/edit?tab=t.0",
+        "actionsUi": {
+          "actionFields": [
+            {
+              "action": "insert",
+              "text": "=Prompt: {{ $json.text }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.googleDocs",
+      "typeVersion": 2,
+      "position": [
+        800,
+        -288
+      ],
+      "id": "44dd3fb6-63ca-4e19-bb3c-30204ff60a86",
+      "name": "Update a document",
+      "credentials": {
+        "googleDocsOAuth2Api": {
+          "id": "MnCdrCZ3qhIZKNst",
+          "name": "output"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "prompt-polish",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        432,
+        -464
+      ],
+      "id": "da49c945-3e06-4c3a-9bf3-3eabd7827d53",
+      "name": "prompt-polish",
+      "webhookId": "19176064-2faf-4a43-8173-6b9616fb4f8a"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "aa5ef3cf-654d-4aba-a585-027925edbfa0",
+              "name": "text",
+              "value": "={{ $('Basic LLM Chain').item.json.text }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1040,
+        -352
+      ],
+      "id": "08341d65-f99b-4f2e-aaec-e55ff7f7adaa",
+      "name": "Edit Fields"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Simple Memory": {
+      "ai_memory": [
+        []
+      ]
+    },
+    "contact": {
+      "main": [
+        [
+          {
+            "node": "Information Extractor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "signup-sheet": {
+      "ai_tool": [
+        []
+      ]
+    },
+    "signup": {
+      "main": [
+        [
+          {
+            "node": "Append or update row in sheet1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Information Extractor",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "login": {
+      "main": [
+        [
+          {
+            "node": "Append or update row in sheet1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Information Extractor": {
+      "main": [
+        [
+          {
+            "node": "Contacts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append or update row in sheet1": {
+      "main": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "prompt1": {
+      "main": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Basic LLM Chain": {
+      "main": [
+        [
+          {
+            "node": "Update a document",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "prompt-polish": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update a document": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "2890012c-f38a-4b60-8598-2c1ae93833ec",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "6c92b804ca1aa5a469b72b885fc662a48e1f5bc4ce76550cd417b17cb9a4d3e3"
+  },
+  "id": "46MWBlgNiTge5Cz6",
+  "tags": []
+}

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PromptPolish Sign Up</title>
+  <link rel="stylesheet" href="pin.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+    <h1 class="page-title">Welcome to PromptPolish</h1>
+    <div class="login-container">
+    <!-- Left Section -->
+    <div class="login-left">
+      <i class="fas fa-user-plus fa-4x"></i>
+      <h2>Create Account</h2>
+      <p>Already have an account?</p>
+      <a href="pinlog.html" class="signup-link">Log in here</a>
+    </div>
+
+    <!-- Right Section -->
+    <div class="login-right">
+      <form id="signupForm" class="login-form">
+        <div class="input-icon">
+          <i class="fas fa-user"></i>
+          <input type="text" placeholder="Full Name" required />
+        </div>
+
+        <div class="input-icon">
+          <i class="fas fa-envelope"></i>
+          <input type="email" placeholder="Email" required />
+        </div>
+
+        <div class="input-icon">
+          <i class="fas fa-lock"></i>
+          <input type="password" id="password" placeholder="Password" required />
+        </div>
+
+        <div class="input-icon">
+          <i class="fas fa-lock"></i>
+          <input type="password" id="confirmPassword" placeholder="Confirm Password" required />
+        </div>
+
+        <div id="matchMessage" class="message"></div>
+
+        <button type="submit" class="login-btn">SIGN UP</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="pin.js"></script>
+</body>
+</html>

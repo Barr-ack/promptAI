@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Polished Prompt - PromptPolish</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="output.css">
+  <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body class="bg-light text-dark font-sans">
+
+  <!-- Shared Header -->
+  <header class="bg-dark shadow-md">
+    <nav class="container mx-auto flex justify-between items-center py-4 px-6">
+      <div class="text-2xl font-extrabold text-primary">PromptPolish</div>
+      <ul class="hidden md:flex space-x-8">
+        <li><a href="index.html" class="hover:text-primary">Home</a></li>
+        <li><a href="prompt.html" class="hover:text-primary">Prompt</a></li>
+        <li><a href="about.html" class="hover:text-primary">About</a></li>
+        <li><a href="features.html" class="hover:text-primary">Features</a></li>
+        <li><a href="contact.html" class="hover:text-primary">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Unique Content -->
+  <main class="container mx-auto py-16 px-6">
+    <h1 class="text-4xl font-bold text-center mb-8">Your Polished Prompt</h1>
+    <div class="max-w-3xl mx-auto bg-white shadow-lg rounded-xl p-8">
+      <p id="outputPrompt" class="text-lg text-gray-700 whitespace-pre-wrap"></p>
+    </div>
+    <div class="text-center mt-6">
+      <a href="prompt.html" class="text-primary font-semibold hover:underline">Polish Another Prompt</a>
+    </div>
+  </main>
+
+  <!-- Shared Footer -->
+  <footer class="bg-dark py-6 text-center text-sm text-light">
+    <p>&copy; 2025 PromptPolish. All rights reserved.</p>
+  </footer>
+
+  <script>
+    feather.replace();
+
+    // Extract prompt from query string
+    const params = new URLSearchParams(window.location.search);
+    const prompt = params.get("prompt");
+
+    if (prompt) {
+      document.querySelector("#outputPrompt").textContent = decodeURIComponent(prompt);
+    } else {
+      document.querySelector("#outputPrompt").textContent = "⚠️ No prompt provided.";
+    }
+  </script>
+  <script src="output.js"></script>
+</body>
+</html>
